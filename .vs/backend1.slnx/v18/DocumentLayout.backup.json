@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\vs2026\\backend1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BDDFC0C6-1D95-DD6A-6EDA-8EF3A2967107}|backend1.esproj|f:\\vs2026\\backend1\\public\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{BDDFC0C6-1D95-DD6A-6EDA-8EF3A2967107}|backend1.esproj|solutionrelative:public\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDDFC0C6-1D95-DD6A-6EDA-8EF3A2967107}|backend1.esproj|f:\\vs2026\\backend1\\server.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{BDDFC0C6-1D95-DD6A-6EDA-8EF3A2967107}|backend1.esproj|solutionrelative:server.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDDFC0C6-1D95-DD6A-6EDA-8EF3A2967107}|backend1.esproj|f:\\vs2026\\backend1\\.env||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{BDDFC0C6-1D95-DD6A-6EDA-8EF3A2967107}|backend1.esproj|solutionrelative:.env||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDDFC0C6-1D95-DD6A-6EDA-8EF3A2967107}|backend1.esproj|f:\\vs2026\\backend1\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{BDDFC0C6-1D95-DD6A-6EDA-8EF3A2967107}|backend1.esproj|solutionrelative:package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "script.js",
+              "DocumentMoniker": "F:\\vs2026\\backend1\\public\\script.js",
+              "RelativeDocumentMoniker": "public\\script.js",
+              "ToolTip": "F:\\vs2026\\backend1\\public\\script.js",
+              "RelativeToolTip": "public\\script.js",
+              "ViewState": "AgIAAAgBAAAAAAAAAAAiwCMBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-12-14T10:28:05.186Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "package.json",
+              "DocumentMoniker": "F:\\vs2026\\backend1\\package.json",
+              "RelativeDocumentMoniker": "package.json",
+              "ToolTip": "F:\\vs2026\\backend1\\package.json",
+              "RelativeToolTip": "package.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-14T09:12:34.586Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": ".env",
+              "DocumentMoniker": "F:\\vs2026\\backend1\\.env",
+              "RelativeDocumentMoniker": ".env",
+              "ToolTip": "F:\\vs2026\\backend1\\.env",
+              "RelativeToolTip": ".env",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-12-14T09:11:35.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "server.js",
+              "DocumentMoniker": "F:\\vs2026\\backend1\\server.js",
+              "RelativeDocumentMoniker": "server.js",
+              "ToolTip": "F:\\vs2026\\backend1\\server.js",
+              "RelativeToolTip": "server.js",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAQwCgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-12-14T09:10:20.604Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
