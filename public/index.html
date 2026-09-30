@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 助手</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- 科技风字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+    <!-- 隐藏音频：左上角点击音效 -->
+    <audio id="logoAudio" preload="auto">
+        <source src="assets/click.mp3" type="audio/mpeg">
+    </audio>
+
+    <style>
+        /* ========= 顶栏时钟专属样式 ========= */
+        .header-clock {
+            font-family: 'Orbitron', monospace;
+            font-size: 28px;
+            letter-spacing: 2px;
+            color: #fff;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            padding: 6px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            box-shadow: 0 0 12px rgba(0,114,255,.55);
+            transition: transform .2s;
+        }
+
+            .header-clock:hover {
+                transform: scale(1.05);
+            }
+        /* 时钟绝对居中 */
+        .app-header {
+            position: relative;
+        }
+
+        .header-clock {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: all;
+        }
+        /* 右侧用户信息/退出按钮保持靠右 */
+        .header-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* 左上角 LOGO 整体缩小 */
+        .header-left h1 {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            height: 60px;
+            margin: 0;
+            color: #ff7eb3; /* 粉色文字 */
+            text-shadow: 0 0 8px rgba(255,126,179,.35);
+        }
+
+            .header-left h1 img,
+            .header-left .logo-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+        /* 聊天气泡头像缩小 */
+        .message .avatar {
+            width: 24px;
+            height: 24px;
+            font-size: 16px;
+        }
+
+            .message .avatar img {
+                width: 24px;
+                height: 24px;
+            }
+
+        /* 对话头像 hover 放大 */
+        .message .avatar {
+            transition: transform .25s ease;
+            cursor: pointer;
+        }
+
+            .message .avatar:hover {
+                transform: scale(1.25);
+            }
+
+        /* 复制按钮样式 */
+        .copy-btn {
+            margin-left: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            user-select: none;
+            vertical-align: middle;
+        }
+
+            .copy-btn:hover {
+                color: #2575fc;
+            }
+    </style>
+</head>
+
+<body>
+    <!-- 登录/注册区域（略） -->
+    <div id="authContainer" class="auth-container">
+        <div class="auth-box">
+            <h2>🤖 AI 助手</h2>
+            <form id="loginForm" class="auth-form">
+                <h3>登录</h3>
+                <input type="text" id="loginUsername" placeholder="用户名" required />
+                <input type="password" id="loginPassword" placeholder="密码" required />
+                <button type="submit">登录</button>
+                <p class="toggle">没有账号？<a href="#" id="showRegister">立即注册</a></p>
+            </form>
+            <form id="registerForm" class="auth-form hidden">
+                <h3>注册</h3>
+                <input type="text" id="registerUsername" placeholder="用户名（至少3位）" required minlength="3" />
+                <input type="password" id="registerPassword" placeholder="密码（至少6位）" required minlength="6" />
+                <button type="submit">注册</button>
+                <p class="toggle">已有账号？<a href="#" id="showLogin">立即登录</a></p>
+            </form>
+            <div id="authMessage" class="message-error"></div>
+        </div>
+    </div>
+
+    <!-- 主应用 -->
+    <div id="chatApp" class="app-container hidden">
+        <!-- 顶部导航：图标可点 -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1 id="logoBtn" style="cursor:pointer;">
+                    <img src="assets/robot.png" class="logo-icon" alt="" /> 千早AI音
+                </h1>
+            </div>
+            <div class="header-right">
+                <span id="headerClock" class="header-clock" title="点击查看实时时间"></span>
+                <span id="currentUser">用户</span>
+                <button id="logoutBtn" class="btn-logout">退出</button>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="sidebar">
+                <button id="newChatBtn" class="btn-new-chat">+ 新对话</button>
+                <div class="history-title">最近对话</div>
+                <div id="historyList" class="history-list"></div>
+                <button id="deleteCurrentChatBtn" class="btn-delete-chat">🗑️ 删除当前对话</button>
+            </aside>
+
+            <main class="chat-main">
+                <div class="chat-container" id="chatContainer"></div>
+                <footer class="input-area">
+                    <textarea id="userInput" placeholder="向 AI 助手提问...（Shift+Enter 换行）"></textarea>
+                    <button id="sendBtn">发送</button>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+
+
+    <script src="script.js"></script>
+    <script src="music-player.js"></script>
+    <script>
+        /* ===== 顶栏时钟逻辑 ===== */
+        (function initHeaderClock() {
+            const clockEl = document.getElementById('headerClock');
+            if (!clockEl) return;
+            const pad = n => n < 10 ? '0' + n : n;
+            function updateClock() {
+                const now = new Date();
+                clockEl.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+            clockEl.addEventListener('click', () => {
+                alert('当前时间：' + new Date().toLocaleString('zh-CN'));
+            });
+        })();
+
+        /* 左上角图标点击播放音效 */
+        document.getElementById('logoBtn')?.addEventListener('click', () => {
+            const audio = document.getElementById('logoAudio');
+            audio.currentTime = 0;
+            audio.play().catch(() => { });
+        });
+
+        /* ===== 复制按钮 ===== */
+        function addCopyBtn(container) {
+            const copyIcon = document.createElement('span');
+            copyIcon.innerHTML = '⧉';
+            copyIcon.title = '复制';
+            copyIcon.className = 'copy-btn';
+            copyIcon.addEventListener('click', async () => {
+                const text = container.querySelector('.text').innerText;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    copyIcon.innerHTML = '✓';
+                    setTimeout(() => copyIcon.innerHTML = '⧉', 1200);
+                } catch (e) {
+                    console.error('复制失败', e);
+                }
+            });
+            container.appendChild(copyIcon);
+        }
+
+        /* 对已有消息补按钮，对新消息自动插按钮 */
+        document.querySelectorAll('.message').forEach(addCopyBtn);
+        const origAppend = Element.prototype.appendChild;
+        Element.prototype.appendChild = function (node) {
+            if (node.classList && node.classList.contains('message')) addCopyBtn(node);
+            return origAppend.call(this, node);
+        };
+    </script>
+    <!-- 迷你音乐播放器 -->
+    <div id="miniPlayer" class="mini-player">
+        <div class="player-header">
+            <span class="player-title">🎵 音乐播放器</span>
+            <button id="minimizePlayer" class="minimize-btn">−</button>
+        </div>
+        <div class="player-controls">
+            <button id="prevBtn" class="control-btn">⏮</button>
+            <button id="playPauseBtn" class="control-btn play">▶</button>
+            <button id="nextBtn" class="control-btn">⏭</button>
+        </div>
+        <div class="player-info">
+            <span id="currentSong" class="song-name">加载中...</span>
+        </div>
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
+    </div>
+
+    <!-- 最小化后的播放器按钮 -->
+    <button id="miniPlayerBtn" class="mini-player-btn hidden">🎵</button>
+
+    <!-- 音频元素 -->
+    <audio id="audioPlayer" preload="auto"></audio>
+</body>
+</html>

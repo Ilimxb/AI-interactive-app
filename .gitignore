@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# IDE and build caches
+.vs/
+obj/
+bin/
+dist/
+build/
+coverage/
+*.user
+*.suo
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
